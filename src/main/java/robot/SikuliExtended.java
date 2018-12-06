@@ -8,7 +8,7 @@ public class SikuliExtended extends AnnotationLibrary {
     public static final String ROBOT_LIBRARY_SCOPE = "GLOBAL";
 
     public SikuliExtended() {
-        super("alliander/keywords/*.class");
+        super("robot/keywords/*.class");
     }
 
     @Override

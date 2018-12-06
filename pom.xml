@@ -4,25 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.michiel.sikuliextended</groupId>
-    <artifactId>sikuliextended</artifactId>
+    <groupId>robot</groupId>
+    <artifactId>SikuliExtended</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>SikuliExtended</name>
-
-    <repositories>
-        <repository>
-            <!--OSSRH: com.sikulix-->
-            <id>com.sikulix</id>
-            <name>com.sikulix</name>
-            <url>https://oss.sonatype.org/content/groups/public</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.robotframework/robotframework -->
@@ -43,20 +29,12 @@
             <artifactId>jrobotremoteserver</artifactId>
             <version>3.0</version>
         </dependency>
+        <!-- local rep -->
         <dependency>
-            <groupId>sikuliapi</groupId>
-            <artifactId>sikuliapi</artifactId>
+            <groupId>com.sikulix</groupId>
+            <artifactId>sikulixapi</artifactId>
             <version>1.1.4</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/sikulixapi.jar</systemPath>
         </dependency>
-        <!-- https://oss.sonatype.org/content/repositories/snapshots/ -->
-        <!--        <dependency>
-                    <groupId>com.sikulix</groupId>
-                    <artifactId>sikulixapi</artifactId>
-                    <version>1.1.4-SNAPSHOT</version>
-                </dependency>-->
-
     </dependencies>
 
     <build>
@@ -71,6 +49,28 @@
         </pluginManagement>
 
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.sikulix</groupId>
+                            <artifactId>sikulixapi</artifactId>
+                            <version>1.1.4</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/sikulixapi.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -89,10 +89,10 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>alliander/SikuliExtended</mainClass>
+                            <mainClass>robot/SikuliExtended</mainClass>
                         </manifest>
                     </archive>
-                    <finalName>sikuli-extended-library-0.1-server</finalName>
+                    <finalName>sikuli-extended-library-1.0-server</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
